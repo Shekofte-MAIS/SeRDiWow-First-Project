@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<aspect>
+    <advice type="" xPathExpression="//bpmn:process//bpmn:userTask[@id='enter-pin-code']">
+        <serviceTask id="check-pin-code" name="Check pin code" javaClass="com.example.workflow.PinCodeCheckerDelegate" />
+    </advice>
+</aspect>
