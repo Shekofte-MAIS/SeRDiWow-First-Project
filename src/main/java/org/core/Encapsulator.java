@@ -25,5 +25,6 @@ public class Encapsulator {
         Bpmn.validateModel(bpmnModelInstance);
         var newFile = new File(ConfigProperties.wovenBpmnFilePath);
         Bpmn.writeModelToFile(newFile, bpmnModelInstance);
+        System.out.println("Woven bpmn file generated successfully in " + ConfigProperties.wovenBpmnFilePath);
     }
 }
