@@ -2,15 +2,15 @@ package org.weaving.executionListener;
 
 import org.exceptions.AspectFileException;
 import org.w3c.dom.Node;
-import org.weaving.base.AdvicesParser;
+import org.weaving.base.AspectParser;
 
 import javax.xml.xpath.XPathExpressionException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExecutionListenerAdvicesParser extends AdvicesParser<ExecutionListenerAdvice> {
+public class ExecutionListenerAspectParser extends AspectParser<ExecutionListenerAdvice> {
 
-    public ExecutionListenerAdvicesParser(String aspectFilePath) throws Exception {
+    public ExecutionListenerAspectParser(String aspectFilePath) throws Exception {
         super(aspectFilePath);
     }
 

@@ -6,10 +6,10 @@ import org.utils.XmlNodesLocatorUsingXPath;
 import javax.xml.xpath.XPathExpressionException;
 import java.util.List;
 
-public abstract class AdvicesParser<T extends Advice> {
+public abstract class AspectParser<T extends Advice> {
     protected XmlNodesLocatorUsingXPath xmlNodesLocatorUsingXPath;
 
-    protected AdvicesParser(String aspectFilePath) throws Exception {
+    protected AspectParser(String aspectFilePath) throws Exception {
         xmlNodesLocatorUsingXPath = new XmlNodesLocatorUsingXPath(aspectFilePath);
     }
 

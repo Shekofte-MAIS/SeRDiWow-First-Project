@@ -6,7 +6,7 @@ import org.camunda.bpm.model.bpmn.instance.FlowNode;
 import org.camunda.bpm.model.bpmn.instance.SequenceFlow;
 import org.camunda.bpm.model.bpmn.instance.ServiceTask;
 import org.weaving.base.AspectWeaver;
-import org.weaving.base.AdvicesParser;
+import org.weaving.base.AspectParser;
 
 public class JavaClassServiceTaskAspectWeaver extends AspectWeaver<JavaClassServiceTaskAdvice> {
     public JavaClassServiceTaskAspectWeaver(BpmnModelInstance bpmnModelInstance) {
@@ -14,8 +14,8 @@ public class JavaClassServiceTaskAspectWeaver extends AspectWeaver<JavaClassServ
     }
 
     @Override
-    public AdvicesParser getAdviceParser(String aspectFilePath) throws Exception {
-        return new JavaClassServiceTaskAdvicesParser(aspectFilePath);
+    public AspectParser getAspectParser(String aspectFilePath) throws Exception {
+        return new JavaClassServiceTaskAspectParser(aspectFilePath);
     }
 
     @Override

@@ -1,14 +1,14 @@
 import org.junit.jupiter.api.Test;
 import org.utils.AdviceType;
-import org.weaving.executionListener.ExecutionListenerAdvicesParser;
+import org.weaving.executionListener.ExecutionListenerAspectParser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ExecutionListenerAdvicesParserTest {
+public class ExecutionListenerAspectParserTest {
     @Test
     public void validAdvices_parseAdvices_assert() throws Exception {
         var aspectFilePath = "src//test//data//aspects//executionListener//aspect.xml";
-        var executionListenerAdvicesParser = new ExecutionListenerAdvicesParser(aspectFilePath);
+        var executionListenerAdvicesParser = new ExecutionListenerAspectParser(aspectFilePath);
         var advices = executionListenerAdvicesParser.getAdvices();
 
         assertEquals(advices.size(), 2);

@@ -5,7 +5,7 @@ import org.camunda.bpm.model.bpmn.instance.BoundaryEvent;
 import org.camunda.bpm.model.bpmn.instance.FlowNode;
 import org.camunda.bpm.model.bpmn.instance.SequenceFlow;
 import org.camunda.bpm.model.bpmn.instance.ServiceTask;
-import org.weaving.base.AdvicesParser;
+import org.weaving.base.AspectParser;
 import org.weaving.base.AspectWeaver;
 
 public class ExternalServiceTaskAspectWeaver extends AspectWeaver<ExternalServiceTaskAdvice> {
@@ -15,8 +15,8 @@ public class ExternalServiceTaskAspectWeaver extends AspectWeaver<ExternalServic
     }
 
     @Override
-    public AdvicesParser<ExternalServiceTaskAdvice> getAdviceParser(String aspectFilePath) throws Exception {
-        return new ExternalServiceTaskAdvicesParser(aspectFilePath);
+    public AspectParser<ExternalServiceTaskAdvice> getAspectParser(String aspectFilePath) throws Exception {
+        return new ExternalServiceTaskAspectParser(aspectFilePath);
     }
 
     @Override

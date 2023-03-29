@@ -10,7 +10,7 @@ public abstract class AspectWeaver<T extends Advice> {
         this.bpmnModelInstance = bpmnModelInstance;
     }
 
-    public abstract AdvicesParser<T> getAdviceParser(String aspectFilePath) throws Exception;
+    public abstract AspectParser<T> getAspectParser(String aspectFilePath) throws Exception;
     public abstract void weaveAfterAdvice(T advice, FlowNode monitoredElement);
     public abstract  void weaveBeforeAdvice(T advice, FlowNode monitoredElement);
 }

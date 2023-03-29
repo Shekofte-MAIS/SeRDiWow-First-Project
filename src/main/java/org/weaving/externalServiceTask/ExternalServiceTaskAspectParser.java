@@ -2,14 +2,14 @@ package org.weaving.externalServiceTask;
 
 import org.exceptions.AspectFileException;
 import org.w3c.dom.Node;
-import org.weaving.base.AdvicesParser;
+import org.weaving.base.AspectParser;
 
 import javax.xml.xpath.XPathExpressionException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExternalServiceTaskAdvicesParser extends AdvicesParser<ExternalServiceTaskAdvice> {
-    public ExternalServiceTaskAdvicesParser(String aspectFilePath) throws Exception {
+public class ExternalServiceTaskAspectParser extends AspectParser<ExternalServiceTaskAdvice> {
+    public ExternalServiceTaskAspectParser(String aspectFilePath) throws Exception {
         super(aspectFilePath);
     }
 

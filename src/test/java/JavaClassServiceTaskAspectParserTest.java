@@ -1,15 +1,15 @@
 import org.exceptions.AspectFileException;
 import org.junit.jupiter.api.Test;
 import org.utils.AdviceType;
-import org.weaving.javaClassServiceTask.JavaClassServiceTaskAdvicesParser;
+import org.weaving.javaClassServiceTask.JavaClassServiceTaskAspectParser;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class JavaClassServiceTaskAdvicesParserTest {
+public class JavaClassServiceTaskAspectParserTest {
     @Test
     public void validAdvices_parseAdvices_assert() throws Exception {
         var aspectFilePath = "src//test//data//aspects//javaClassServiceTask//aspect.xml";
-        var javaClassServiceTaskAdvicesParser = new JavaClassServiceTaskAdvicesParser(aspectFilePath);
+        var javaClassServiceTaskAdvicesParser = new JavaClassServiceTaskAspectParser(aspectFilePath);
         var advices = javaClassServiceTaskAdvicesParser.getAdvices();
 
         assertEquals(advices.size(), 2);
@@ -24,7 +24,7 @@ public class JavaClassServiceTaskAdvicesParserTest {
     @Test
     public void invalidAdvices_parseAdvices_throwsAdvicesFileException() throws Exception {
         var aspectFilePath = "src//test//data//aspects//javaClassServiceTask//aspectContainingAdviceWithInvalidAdviceType.xml";
-        var javaClassServiceTaskAdvicesParser = new JavaClassServiceTaskAdvicesParser(aspectFilePath);
+        var javaClassServiceTaskAdvicesParser = new JavaClassServiceTaskAspectParser(aspectFilePath);
         assertThrows(AspectFileException.class, javaClassServiceTaskAdvicesParser::getAdvices);
     }
 }

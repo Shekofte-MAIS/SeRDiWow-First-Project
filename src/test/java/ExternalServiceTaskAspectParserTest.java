@@ -1,14 +1,14 @@
 import org.junit.jupiter.api.Test;
 import org.utils.AdviceType;
-import org.weaving.externalServiceTask.ExternalServiceTaskAdvicesParser;
+import org.weaving.externalServiceTask.ExternalServiceTaskAspectParser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ExternalServiceTaskAdvicesParserTest {
+public class ExternalServiceTaskAspectParserTest {
     @Test
     public void validAdvices_parseAdvices_assert() throws Exception {
         var aspectFilePath = "src//test//data//aspects//externalServiceTask//aspect.xml";
-        var externalServiceTaskAdvicesParser = new ExternalServiceTaskAdvicesParser(aspectFilePath);
+        var externalServiceTaskAdvicesParser = new ExternalServiceTaskAspectParser(aspectFilePath);
         var advices = externalServiceTaskAdvicesParser.getAdvices();
 
         assertEquals(advices.size(), 2);

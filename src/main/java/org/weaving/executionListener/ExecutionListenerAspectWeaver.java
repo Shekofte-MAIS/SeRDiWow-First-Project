@@ -4,7 +4,7 @@ import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.impl.instance.TaskImpl;
 import org.camunda.bpm.model.bpmn.instance.BoundaryEvent;
 import org.camunda.bpm.model.bpmn.instance.FlowNode;
-import org.weaving.base.AdvicesParser;
+import org.weaving.base.AspectParser;
 import org.weaving.base.AspectWeaver;
 
 public class ExecutionListenerAspectWeaver extends AspectWeaver<ExecutionListenerAdvice> {
@@ -13,8 +13,8 @@ public class ExecutionListenerAspectWeaver extends AspectWeaver<ExecutionListene
     }
 
     @Override
-    public AdvicesParser<ExecutionListenerAdvice> getAdviceParser(String aspectFilePath) throws Exception {
-        return new ExecutionListenerAdvicesParser(aspectFilePath);
+    public AspectParser<ExecutionListenerAdvice> getAspectParser(String aspectFilePath) throws Exception {
+        return new ExecutionListenerAspectParser(aspectFilePath);
     }
 
     @Override

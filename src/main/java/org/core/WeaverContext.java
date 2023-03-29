@@ -17,7 +17,7 @@ public class WeaverContext {
     }
 
     public void weave(BpmnModelInstance bpmnModelInstance) throws Exception {
-        var advicesParser = aspectWeaver.getAdviceParser(ConfigProperties.aspectFilePath);
+        var advicesParser = aspectWeaver.getAspectParser(ConfigProperties.aspectFilePath);
         List<Advice> advices = advicesParser.getAdvices();
         BpmnElementsFinder bpmnElementsFinder = new BpmnElementsFinder(bpmnModelInstance, ConfigProperties.bpmnFilePath);
         for (Advice advice : advices) {
