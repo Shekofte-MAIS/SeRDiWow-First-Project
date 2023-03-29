@@ -1,7 +1,7 @@
 package org.utils;
 
 public enum AdviceType {
-    Before,
-    After,
+    before,
+    after,
     //Around = After + Before
 }

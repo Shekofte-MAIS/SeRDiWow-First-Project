@@ -21,3 +21,7 @@ In order to use the project, follow these steps:
    </figure>
 
 4. Simply run the project. You can see the result of weaving in `woven-bpmn-file-path`. 
+
+**NOTE:** the aspect file is just related to the interceptor part. There is also an enforcer part which is
+woven into the bpmn file. But this enforcer part is always fixed, which contains mainly an `Email error message` 
+service task as well as an end event.

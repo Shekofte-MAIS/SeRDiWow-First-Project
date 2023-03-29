@@ -4,32 +4,27 @@
   <bpmn:process id="Getting-Money-With-Card" isClosed="false" isExecutable="true" name="Getting Money With Card" processType="None">
         
     <bpmn:startEvent id="StartEvent_1" isInterrupting="true" name="Start" parallelMultiple="false">
+      <outgoing xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">sequenceFlow_7cd0c429-befe-45fe-a4c8-d8c82f9ee8e0</outgoing>
             
-      <bpmn:outgoing>Flow_006wztj</bpmn:outgoing>
-          
+    
     </bpmn:startEvent>
         
-    <bpmn:sequenceFlow id="Flow_006wztj" sourceRef="StartEvent_1" targetRef="enter-card-number"/>
-        
+    
     <bpmn:userTask camunda:formKey="camunda-forms:/forms/pin-code.form" completionQuantity="1" id="enter-pin-code" implementation="##unspecified" isForCompensation="false" name="Enter pin code" startQuantity="1">
-      <extensionElements xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
-        <camunda:executionListener class="com.example.workflow.EndEnterPinCodeTaskListener" event="end"/>
-      </extensionElements>
             
       <bpmn:incoming>Flow_0gquzs3</bpmn:incoming>
+      <outgoing xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">sequenceFlow_2ff51ca4-2a69-4400-bc37-7d3e528ea01c</outgoing>
             
-      <bpmn:outgoing>Flow_0exn274</bpmn:outgoing>
-          
+    
     </bpmn:userTask>
         
-    <bpmn:sequenceFlow id="Flow_0exn274" sourceRef="enter-pin-code" targetRef="Activity_1i1o9rr"/>
-        
+    
     <bpmn:sequenceFlow id="Flow_1l3y8xe" sourceRef="Activity_1i1o9rr" targetRef="Activity_04kkf0a"/>
         
     <bpmn:userTask camunda:formKey="camunda-forms:/forms/amount.form" completionQuantity="1" id="Activity_1i1o9rr" implementation="##unspecified" isForCompensation="false" name="Enter amount" startQuantity="1">
+      <incoming xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">sequenceFlow_bb72c046-764b-41ca-93f0-3c3fc96bd3fc</incoming>
             
-      <bpmn:incoming>Flow_0exn274</bpmn:incoming>
-            
+      
       <bpmn:outgoing>Flow_1l3y8xe</bpmn:outgoing>
           
     </bpmn:userTask>
@@ -53,41 +48,50 @@
     <bpmn:sequenceFlow id="Flow_0gquzs3" sourceRef="enter-card-number" targetRef="enter-pin-code"/>
         
     <bpmn:userTask camunda:formKey="camunda-forms:/forms/card-number.form" completionQuantity="1" id="enter-card-number" implementation="##unspecified" isForCompensation="false" name="Enter card number" startQuantity="1">
-      <extensionElements xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
-        <camunda:executionListener class="com.example.workflow.StartEnterCardNumberTaskListener" event="start"/>
-      </extensionElements>
+      <incoming xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">sequenceFlow_6c8c852b-6bd9-4f7e-9b17-b6112b743723</incoming>
             
-      <bpmn:incoming>Flow_006wztj</bpmn:incoming>
-            
+      
       <bpmn:outgoing>Flow_0gquzs3</bpmn:outgoing>
           
     </bpmn:userTask>
-    <boundaryEvent attachedToRef="enter-pin-code" id="enter-pin-code-boundary-event" name="" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
-      <outgoing>sequenceFlow_004fe872-bd62-498b-9308-80e29438379a</outgoing>
-      <errorEventDefinition camunda:errorMessageVariable="wrong-pin-code-error-message" errorRef="Error_04bevs9" id="errorEventDefinition_79fefa2a-092b-4b02-ba69-f336b07b4749"/>
-    </boundaryEvent>
-    <serviceTask camunda:class="com.example.workflow.ErrorMessageEmailSenderDelegate" id="serviceTask_e0f8f837-277c-4829-b221-930acd689f36" name="Email error message" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
-      <incoming>sequenceFlow_004fe872-bd62-498b-9308-80e29438379a</incoming>
-      <outgoing>sequenceFlow_42929d89-2fa3-4864-af77-adfd76aadcdd</outgoing>
+    <serviceTask camunda:class="com.example.workflow.PinCodeCheckerDelegate" id="check-pin-code" name="Check pin code" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+      <incoming>sequenceFlow_2ff51ca4-2a69-4400-bc37-7d3e528ea01c</incoming>
+      <outgoing>sequenceFlow_bb72c046-764b-41ca-93f0-3c3fc96bd3fc</outgoing>
     </serviceTask>
-    <sequenceFlow id="sequenceFlow_004fe872-bd62-498b-9308-80e29438379a" sourceRef="enter-pin-code-boundary-event" targetRef="serviceTask_e0f8f837-277c-4829-b221-930acd689f36" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"/>
-    <endEvent id="endEvent_e210f02f-3f37-4cfa-ac2b-d1f11a5a5212" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
-      <incoming>sequenceFlow_42929d89-2fa3-4864-af77-adfd76aadcdd</incoming>
-    </endEvent>
-    <sequenceFlow id="sequenceFlow_42929d89-2fa3-4864-af77-adfd76aadcdd" sourceRef="serviceTask_e0f8f837-277c-4829-b221-930acd689f36" targetRef="endEvent_e210f02f-3f37-4cfa-ac2b-d1f11a5a5212" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"/>
-    <boundaryEvent attachedToRef="enter-card-number" id="enter-card-number-boundary-event" name="" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
-      <outgoing>sequenceFlow_ef90ea4e-3c2a-43f5-92b2-e6f6a3254978</outgoing>
-      <errorEventDefinition camunda:errorMessageVariable="wrong-pin-code-error-message" errorRef="Error_04bevs9" id="errorEventDefinition_87bb9f76-1b95-47d5-918e-40be927a11a8"/>
+    <sequenceFlow id="sequenceFlow_2ff51ca4-2a69-4400-bc37-7d3e528ea01c" sourceRef="enter-pin-code" targetRef="check-pin-code" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"/>
+    <sequenceFlow id="sequenceFlow_bb72c046-764b-41ca-93f0-3c3fc96bd3fc" sourceRef="check-pin-code" targetRef="Activity_1i1o9rr" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"/>
+    <boundaryEvent attachedToRef="check-pin-code" id="check-pin-code-boundary-event" name="" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+      <outgoing>sequenceFlow_255ea919-95d2-4f88-b062-58e53573d0ea</outgoing>
+      <errorEventDefinition camunda:errorMessageVariable="wrong-pin-code-error-message" errorRef="Error_04bevs9" id="errorEventDefinition_708fbea8-c487-4afb-8e91-d191f5affecb"/>
     </boundaryEvent>
-    <serviceTask camunda:class="com.example.workflow.ErrorMessageEmailSenderDelegate" id="serviceTask_ef7e2562-886c-488f-a1fb-d29766aadabe" name="Email error message" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
-      <incoming>sequenceFlow_ef90ea4e-3c2a-43f5-92b2-e6f6a3254978</incoming>
-      <outgoing>sequenceFlow_0696859a-f9ef-4f07-be12-f9b7b03fb135</outgoing>
+    <serviceTask camunda:class="com.example.workflow.ErrorMessageEmailSenderDelegate" id="serviceTask_1a2c7c70-477e-4d14-9576-9a8b0e3d9a7a" name="Email error message" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+      <incoming>sequenceFlow_255ea919-95d2-4f88-b062-58e53573d0ea</incoming>
+      <outgoing>sequenceFlow_dff4b14a-b5b6-40f4-a6f0-ada8328cb12b</outgoing>
     </serviceTask>
-    <sequenceFlow id="sequenceFlow_ef90ea4e-3c2a-43f5-92b2-e6f6a3254978" sourceRef="enter-card-number-boundary-event" targetRef="serviceTask_ef7e2562-886c-488f-a1fb-d29766aadabe" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"/>
-    <endEvent id="endEvent_254fec3f-1dea-42e0-8873-c91a49d70760" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
-      <incoming>sequenceFlow_0696859a-f9ef-4f07-be12-f9b7b03fb135</incoming>
+    <sequenceFlow id="sequenceFlow_255ea919-95d2-4f88-b062-58e53573d0ea" sourceRef="check-pin-code-boundary-event" targetRef="serviceTask_1a2c7c70-477e-4d14-9576-9a8b0e3d9a7a" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"/>
+    <endEvent id="endEvent_9e8c72eb-e180-4b30-884a-dff26a6d11ac" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+      <incoming>sequenceFlow_dff4b14a-b5b6-40f4-a6f0-ada8328cb12b</incoming>
     </endEvent>
-    <sequenceFlow id="sequenceFlow_0696859a-f9ef-4f07-be12-f9b7b03fb135" sourceRef="serviceTask_ef7e2562-886c-488f-a1fb-d29766aadabe" targetRef="endEvent_254fec3f-1dea-42e0-8873-c91a49d70760" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"/>
+    <sequenceFlow id="sequenceFlow_dff4b14a-b5b6-40f4-a6f0-ada8328cb12b" sourceRef="serviceTask_1a2c7c70-477e-4d14-9576-9a8b0e3d9a7a" targetRef="endEvent_9e8c72eb-e180-4b30-884a-dff26a6d11ac" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"/>
+    <serviceTask camunda:class="com.example.workflow.CardNumberCheckerDelegate" id="check-card-number" name="Check card number" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+      <incoming>sequenceFlow_7cd0c429-befe-45fe-a4c8-d8c82f9ee8e0</incoming>
+      <outgoing>sequenceFlow_6c8c852b-6bd9-4f7e-9b17-b6112b743723</outgoing>
+    </serviceTask>
+    <sequenceFlow id="sequenceFlow_7cd0c429-befe-45fe-a4c8-d8c82f9ee8e0" sourceRef="StartEvent_1" targetRef="check-card-number" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"/>
+    <sequenceFlow id="sequenceFlow_6c8c852b-6bd9-4f7e-9b17-b6112b743723" sourceRef="check-card-number" targetRef="enter-card-number" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"/>
+    <boundaryEvent attachedToRef="check-card-number" id="check-card-number-boundary-event" name="" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+      <outgoing>sequenceFlow_44a352bd-5841-47d1-a164-f67644806dec</outgoing>
+      <errorEventDefinition camunda:errorMessageVariable="wrong-pin-code-error-message" errorRef="Error_04bevs9" id="errorEventDefinition_4280e37d-233b-42fa-b67f-455fdc7a9b9f"/>
+    </boundaryEvent>
+    <serviceTask camunda:class="com.example.workflow.ErrorMessageEmailSenderDelegate" id="serviceTask_c14e17e3-e795-4be5-9c31-342ecf1ebfe5" name="Email error message" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+      <incoming>sequenceFlow_44a352bd-5841-47d1-a164-f67644806dec</incoming>
+      <outgoing>sequenceFlow_08890199-0c46-45c0-8a3a-7f655d6bae12</outgoing>
+    </serviceTask>
+    <sequenceFlow id="sequenceFlow_44a352bd-5841-47d1-a164-f67644806dec" sourceRef="check-card-number-boundary-event" targetRef="serviceTask_c14e17e3-e795-4be5-9c31-342ecf1ebfe5" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"/>
+    <endEvent id="endEvent_76cf67b1-933a-4cd7-b91c-33c6d8d9acef" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+      <incoming>sequenceFlow_08890199-0c46-45c0-8a3a-7f655d6bae12</incoming>
+    </endEvent>
+    <sequenceFlow id="sequenceFlow_08890199-0c46-45c0-8a3a-7f655d6bae12" sourceRef="serviceTask_c14e17e3-e795-4be5-9c31-342ecf1ebfe5" targetRef="endEvent_76cf67b1-933a-4cd7-b91c-33c6d8d9acef" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"/>
       
   </bpmn:process>
     
@@ -123,7 +127,7 @@
               
       </bpmndi:BPMNEdge>
             
-      <bpmndi:BPMNEdge bpmnElement="Flow_0exn274" id="Flow_0exn274_di">
+      <bpmndi:BPMNEdge id="Flow_0exn274_di">
                 
         <di:waypoint x="810" y="117"/>
                 
@@ -131,7 +135,7 @@
               
       </bpmndi:BPMNEdge>
             
-      <bpmndi:BPMNEdge bpmnElement="Flow_006wztj" id="Flow_006wztj_di">
+      <bpmndi:BPMNEdge id="Flow_006wztj_di">
                 
         <di:waypoint x="218" y="117"/>
                 
@@ -186,41 +190,63 @@
         <dc:Bounds height="80" width="100" x="1320" y="77"/>
               
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="enter-pin-code-boundary-event" id="BPMNShape_f5de3dad-718c-4c83-aa59-26ccef3ab003">
-        <dc:Bounds height="36.0" width="36.0" x="742.0" y="139.0"/>
+      <bpmndi:BPMNShape bpmnElement="check-pin-code" id="BPMNShape_28c09f69-c6ca-437f-8bc7-7214193f2889">
+        <dc:Bounds height="80.0" width="100.0" x="860.0" y="77.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="serviceTask_e0f8f837-277c-4829-b221-930acd689f36" id="BPMNShape_8366b72d-7443-4c9f-b880-b7d0fb189afb">
-        <dc:Bounds height="80.0" width="100.0" x="790.5" y="185.0"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_004fe872-bd62-498b-9308-80e29438379a" id="BPMNEdge_e049ca5c-611e-47ee-b13a-ed91b241b9ce">
-        <di:waypoint x="760.0" y="175.0"/>
-        <di:waypoint x="760.0" y="225.0"/>
-        <di:waypoint x="790.5" y="225.0"/>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_2ff51ca4-2a69-4400-bc37-7d3e528ea01c" id="BPMNEdge_c57a8b49-be3f-41ff-8c3a-45d7e6e2622f">
+        <di:waypoint x="810.0" y="117.0"/>
+        <di:waypoint x="860.0" y="117.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape bpmnElement="endEvent_e210f02f-3f37-4cfa-ac2b-d1f11a5a5212" id="BPMNShape_47938418-ce92-484a-bb9e-80053287f85f">
-        <dc:Bounds height="36.0" width="36.0" x="940.5" y="207.0"/>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_bb72c046-764b-41ca-93f0-3c3fc96bd3fc" id="BPMNEdge_d4671bc1-1e10-4f07-ace8-a6927c2efce5">
+        <di:waypoint x="960.0" y="117.0"/>
+        <di:waypoint x="1010.0" y="117.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape bpmnElement="check-pin-code-boundary-event" id="BPMNShape_da9ab366-a389-421c-9813-9b549ad15299">
+        <dc:Bounds height="36.0" width="36.0" x="892.0" y="139.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_42929d89-2fa3-4864-af77-adfd76aadcdd" id="BPMNEdge_9385d3e3-5111-414d-8975-087547707a6c">
-        <di:waypoint x="890.5" y="225.0"/>
+      <bpmndi:BPMNShape bpmnElement="serviceTask_1a2c7c70-477e-4d14-9576-9a8b0e3d9a7a" id="BPMNShape_e0570d1b-db84-469a-9920-661904018c79">
+        <dc:Bounds height="80.0" width="100.0" x="940.5" y="185.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_255ea919-95d2-4f88-b062-58e53573d0ea" id="BPMNEdge_020daba6-7076-4dc0-8da6-18774938e652">
+        <di:waypoint x="910.0" y="175.0"/>
+        <di:waypoint x="910.0" y="225.0"/>
         <di:waypoint x="940.5" y="225.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape bpmnElement="enter-card-number-boundary-event" id="BPMNShape_bceda1d9-a772-44fa-baa8-794e07a0642c">
-        <dc:Bounds height="36.0" width="36.0" x="442.0" y="139.0"/>
+      <bpmndi:BPMNShape bpmnElement="endEvent_9e8c72eb-e180-4b30-884a-dff26a6d11ac" id="BPMNShape_2de49008-1fd0-46ee-959a-0d7faa7015e4">
+        <dc:Bounds height="36.0" width="36.0" x="1090.5" y="207.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="serviceTask_ef7e2562-886c-488f-a1fb-d29766aadabe" id="BPMNShape_c3a676c6-d715-4d5a-a4c1-06ec823fceea">
-        <dc:Bounds height="80.0" width="100.0" x="490.5" y="185.0"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_ef90ea4e-3c2a-43f5-92b2-e6f6a3254978" id="BPMNEdge_66a6e0c9-21d4-46b7-a0aa-432ad22ec00f">
-        <di:waypoint x="460.0" y="175.0"/>
-        <di:waypoint x="460.0" y="225.0"/>
-        <di:waypoint x="490.5" y="225.0"/>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_dff4b14a-b5b6-40f4-a6f0-ada8328cb12b" id="BPMNEdge_73cbc881-2f41-417b-89bd-00c5191bb58c">
+        <di:waypoint x="1040.5" y="225.0"/>
+        <di:waypoint x="1090.5" y="225.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape bpmnElement="endEvent_254fec3f-1dea-42e0-8873-c91a49d70760" id="BPMNShape_b8915e2e-74cf-4228-890a-fb228f67f626">
-        <dc:Bounds height="36.0" width="36.0" x="640.5" y="207.0"/>
+      <bpmndi:BPMNShape bpmnElement="check-card-number" id="BPMNShape_4f11790b-700e-4051-8ad6-70e3300de729">
+        <dc:Bounds height="80.0" width="100.0" x="268.0" y="77.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_0696859a-f9ef-4f07-be12-f9b7b03fb135" id="BPMNEdge_8e1777d0-0ed0-47e6-97f3-77cdd652f8c4">
-        <di:waypoint x="590.5" y="225.0"/>
-        <di:waypoint x="640.5" y="225.0"/>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_7cd0c429-befe-45fe-a4c8-d8c82f9ee8e0" id="BPMNEdge_62f5f2a1-72f0-46cd-877f-83a187ac7742">
+        <di:waypoint x="218.0" y="117.0"/>
+        <di:waypoint x="268.0" y="117.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_6c8c852b-6bd9-4f7e-9b17-b6112b743723" id="BPMNEdge_1a50d27d-4a61-4ee6-9d34-f16795219fda">
+        <di:waypoint x="368.0" y="117.0"/>
+        <di:waypoint x="410.0" y="117.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape bpmnElement="check-card-number-boundary-event" id="BPMNShape_29f41ef8-fb1d-43b4-8733-1f26ad4194cf">
+        <dc:Bounds height="36.0" width="36.0" x="300.0" y="139.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="serviceTask_c14e17e3-e795-4be5-9c31-342ecf1ebfe5" id="BPMNShape_07485d4e-7582-41c0-bc88-705de4ee5562">
+        <dc:Bounds height="80.0" width="100.0" x="348.5" y="185.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_44a352bd-5841-47d1-a164-f67644806dec" id="BPMNEdge_87c7ad7b-f33c-4bbc-bf16-bc80b9461e09">
+        <di:waypoint x="318.0" y="175.0"/>
+        <di:waypoint x="318.0" y="225.0"/>
+        <di:waypoint x="348.5" y="225.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape bpmnElement="endEvent_76cf67b1-933a-4cd7-b91c-33c6d8d9acef" id="BPMNShape_4bfea808-1180-40f1-a188-0bc3edcf2886">
+        <dc:Bounds height="36.0" width="36.0" x="498.5" y="207.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_08890199-0c46-45c0-8a3a-7f655d6bae12" id="BPMNEdge_42495215-be2b-49a1-b129-f1d234a29ddf">
+        <di:waypoint x="448.5" y="225.0"/>
+        <di:waypoint x="498.5" y="225.0"/>
       </bpmndi:BPMNEdge>
           
     </bpmndi:BPMNPlane>

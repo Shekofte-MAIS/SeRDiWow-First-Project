@@ -27,15 +27,7 @@ public class ExternalServiceTaskAspectWeaver extends AspectWeaver<ExternalServic
         monitoredElement.builder()
                 .serviceTask(advice.serviceTaskId).name(advice.serviceTaskName).camundaExternalTask(advice.topic)
                 .connectTo(oldTargetNode.getId());
-        ServiceTask addedServiceTask = bpmnModelInstance.getModelElementById(advice.serviceTaskId);
-        addedServiceTask.builder()
-                .boundaryEvent(advice.serviceTaskId + "-boundary-event").name("")
-                .errorEventDefinition().errorMessageVariable("wrong-pin-code-error-message")
-                .error("wrong-pin-code");
-        BoundaryEvent boundaryEvent = bpmnModelInstance.getModelElementById(advice.serviceTaskId + "-boundary-event");
-        boundaryEvent.builder()
-                .serviceTask().name("Email error message").camundaExternalTask("email-error-message")
-                .endEvent();
+        addEnforcerPart(advice.serviceTaskId);
     }
 
     @Override
@@ -46,12 +38,16 @@ public class ExternalServiceTaskAspectWeaver extends AspectWeaver<ExternalServic
         oldSourceNode.builder()
                 .serviceTask(advice.serviceTaskId).name(advice.serviceTaskName).camundaExternalTask(advice.topic)
                 .connectTo(monitoredElement.getId());
-        ServiceTask addedServiceTask = bpmnModelInstance.getModelElementById(advice.serviceTaskId);
+        addEnforcerPart(advice.serviceTaskId);
+    }
+
+    private void addEnforcerPart(String addedServiceTaskId) {
+        ServiceTask addedServiceTask = bpmnModelInstance.getModelElementById(addedServiceTaskId);
         addedServiceTask.builder()
-                .boundaryEvent(advice.serviceTaskId + "-boundary-event").name("")
+                .boundaryEvent(addedServiceTaskId + "-boundary-event").name("")
                 .errorEventDefinition().errorMessageVariable("wrong-pin-code-error-message")
                 .error("wrong-pin-code");
-        BoundaryEvent boundaryEvent = bpmnModelInstance.getModelElementById(advice.serviceTaskId + "-boundary-event");
+        BoundaryEvent boundaryEvent = bpmnModelInstance.getModelElementById(addedServiceTaskId + "-boundary-event");
         boundaryEvent.builder()
                 .serviceTask().name("Email error message").camundaExternalTask("email-error-message")
                 .endEvent();

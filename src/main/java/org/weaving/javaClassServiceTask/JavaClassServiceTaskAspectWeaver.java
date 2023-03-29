@@ -26,15 +26,7 @@ public class JavaClassServiceTaskAspectWeaver extends AspectWeaver<JavaClassServ
         monitoredElement.builder()
                 .serviceTask(advice.serviceTaskId).name(advice.serviceTaskName).camundaClass(advice.javaClass)
                 .connectTo(oldTargetNode.getId());
-        ServiceTask addedServiceTask = bpmnModelInstance.getModelElementById(advice.serviceTaskId);
-        addedServiceTask.builder()
-                .boundaryEvent(advice.serviceTaskId + "-boundary-event").name("")
-                .errorEventDefinition().errorMessageVariable("wrong-pin-code-error-message")
-                .error("wrong-pin-code");
-        BoundaryEvent boundaryEvent = bpmnModelInstance.getModelElementById(advice.serviceTaskId + "-boundary-event");
-        boundaryEvent.builder()
-                .serviceTask().name("Email error message").camundaClass("com.example.workflow.ErrorMessageEmailSenderDelegate")
-                .endEvent();
+        addEnforcerPart(advice.serviceTaskId);
     }
 
     @Override
@@ -45,12 +37,16 @@ public class JavaClassServiceTaskAspectWeaver extends AspectWeaver<JavaClassServ
         oldSourceNode.builder()
                 .serviceTask(advice.serviceTaskId).name(advice.serviceTaskName).camundaClass(advice.javaClass)
                 .connectTo(monitoredElement.getId());
-        ServiceTask addedServiceTask = bpmnModelInstance.getModelElementById(advice.serviceTaskId);
+        addEnforcerPart(advice.serviceTaskId);
+    }
+
+    private void addEnforcerPart(String addedServiceTaskId) {
+        ServiceTask addedServiceTask = bpmnModelInstance.getModelElementById(addedServiceTaskId);
         addedServiceTask.builder()
-                .boundaryEvent(advice.serviceTaskId + "-boundary-event").name("")
+                .boundaryEvent(addedServiceTaskId + "-boundary-event").name("")
                 .errorEventDefinition().errorMessageVariable("wrong-pin-code-error-message")
                 .error("wrong-pin-code");
-        BoundaryEvent boundaryEvent = bpmnModelInstance.getModelElementById(advice.serviceTaskId + "-boundary-event");
+        BoundaryEvent boundaryEvent = bpmnModelInstance.getModelElementById(addedServiceTaskId + "-boundary-event");
         boundaryEvent.builder()
                 .serviceTask().name("Email error message").camundaClass("com.example.workflow.ErrorMessageEmailSenderDelegate")
                 .endEvent();

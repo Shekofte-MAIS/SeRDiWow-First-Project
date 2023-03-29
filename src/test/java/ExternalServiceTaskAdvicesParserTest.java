@@ -13,7 +13,7 @@ public class ExternalServiceTaskAdvicesParserTest {
 
         assertEquals(advices.size(), 2);
         var secondAdvice = advices.get(1);
-        assertEquals(secondAdvice.adviceType, AdviceType.After);
+        assertEquals(secondAdvice.adviceType, AdviceType.after);
         assertEquals(secondAdvice.xPathExpression, "//bpmn:process//bpmn:serviceTask[@id='enter-card-number']");
         assertEquals(secondAdvice.serviceTaskId, "check-card-number");
         assertEquals(secondAdvice.serviceTaskName, "Check card number");

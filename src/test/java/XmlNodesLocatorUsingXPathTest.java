@@ -29,7 +29,7 @@ class XmlNodesLocatorUsingXPathTest {
 
         var nodeList = xmlNodesLocatorUsingXPath.getNodes("//advice");
         var firstNode = nodeList.item(0);
-        assertEquals("Before", xmlNodesLocatorUsingXPath.getNodeValue(firstNode, "./@type"));
+        assertEquals("before", xmlNodesLocatorUsingXPath.getNodeValue(firstNode, "./@type"));
         assertEquals("check-pin-code", xmlNodesLocatorUsingXPath.getNodeValue(firstNode, ".//@id"));
     }
 }

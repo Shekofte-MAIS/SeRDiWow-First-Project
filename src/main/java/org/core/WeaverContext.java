@@ -23,9 +23,9 @@ public class WeaverContext {
         for (Advice advice : advices) {
             var monitoredElements = bpmnElementsFinder.getFlowNodes(advice.xPathExpression);
             for (org.camunda.bpm.model.bpmn.instance.FlowNode monitoredElement : monitoredElements) {
-                if (advice.adviceType == AdviceType.After) {
+                if (advice.adviceType == AdviceType.after) {
                     aspectWeaver.weaveAfterAdvice(advice, monitoredElement);
-                } else if (advice.adviceType == AdviceType.Before) {
+                } else if (advice.adviceType == AdviceType.before) {
                     aspectWeaver.weaveBeforeAdvice(advice, monitoredElement);
                 }
             }

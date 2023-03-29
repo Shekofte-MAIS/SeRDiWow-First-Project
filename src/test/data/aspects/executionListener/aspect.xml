@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <aspect>
-    <advice type="Before" xPathExpression="//bpmn:process//bpmn:userTask[@id='enter-pin-code']">
+    <advice type="before" xPathExpression="//bpmn:process//bpmn:userTask[@id='enter-pin-code']">
         <executionListener javaClass="com.example.workflow.EndEnterPinCodeTaskListener" />
     </advice>
-    <advice type="After" xPathExpression="//bpmn:process//bpmn:serviceTask[@id='enter-card-number']">
+    <advice type="after" xPathExpression="//bpmn:process//bpmn:serviceTask[@id='enter-card-number']">
         <executionListener javaClass="com.example.workflow.EndEnterCardNumberTaskListener" />
     </advice>
 </aspect>
