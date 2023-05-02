@@ -6,7 +6,7 @@ import org.utils.ConfigProperties;
 
 public class Main {
     private static Logger logger;
-    private static final String configFilePath = "src//main//resources//config.properties";
+    private final static String configFilePath = "src//main//resources//config.properties";
 
     public static void main(String[] args) {
         BasicConfigurator.configure();
