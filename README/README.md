@@ -5,7 +5,7 @@ In order to use the project, follow these steps:
 1. Set the following properties in the [config.properties](/src/main/resources/config.properties) file.
    - `bpmn-file-path`: the path to the original bpmn file.
    - `aspect-file-path`: the path to the aspect file.
-   - `woven-bpmn-file-path`: the path in which we want to store the output, which is the woven bpmn file.
+   - `woven-bpmn-file-path`: the path in which you want to store the output, which is the woven bpmn file.
    - `hook-type`: type of the interceptor module which acts like a hook. See the project proposal for more details.
      - Valid options for this attribute are: `ExecutionListener`, `ExternalServiceTask`, and `JavaClassServiceTask`.
 
