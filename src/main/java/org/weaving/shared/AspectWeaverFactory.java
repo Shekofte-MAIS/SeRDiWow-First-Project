@@ -5,7 +5,7 @@ import org.utils.HookType;
 import org.weaving.base.AspectWeaver;
 import org.weaving.executionListener.ExecutionListenerAspectWeaver;
 import org.weaving.externalServiceTask.ExternalServiceTaskAspectWeaver;
-import org.weaving.javaClassServiceTask.JavaClassServiceTaskAspectWeaver;
+import org.weaving.internalServiceTask.InternalServiceTaskAspectWeaver;
 
 public class AspectWeaverFactory {
     private final BpmnModelInstance bpmnModelInstance;
@@ -16,10 +16,10 @@ public class AspectWeaverFactory {
 
     public AspectWeaver generateWeaver(HookType hookType) {
         switch (hookType) {
-            case JavaClassServiceTask: return new JavaClassServiceTaskAspectWeaver(bpmnModelInstance);
+            case InternalServiceTask: return new InternalServiceTaskAspectWeaver(bpmnModelInstance);
             case ExternalServiceTask: return new ExternalServiceTaskAspectWeaver(bpmnModelInstance);
             case ExecutionListener: return new ExecutionListenerAspectWeaver(bpmnModelInstance);
-            default: return new JavaClassServiceTaskAspectWeaver(bpmnModelInstance);
+            default: return new InternalServiceTaskAspectWeaver(bpmnModelInstance);
         }
     }
 }

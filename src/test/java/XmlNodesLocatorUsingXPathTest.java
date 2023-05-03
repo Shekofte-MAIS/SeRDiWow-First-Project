@@ -25,7 +25,7 @@ class XmlNodesLocatorUsingXPathTest {
 
     @Test
     void validXPath_getNodeValue_assert() throws Exception {
-        var xmlNodesLocatorUsingXPath = new XmlNodesLocatorUsingXPath("src//test//data//aspects//javaClassServiceTask//aspect.xml");
+        var xmlNodesLocatorUsingXPath = new XmlNodesLocatorUsingXPath("src//test//data//aspects//internalServiceTask//aspect.xml");
 
         var nodeList = xmlNodesLocatorUsingXPath.getNodes("//advice");
         var firstNode = nodeList.item(0);

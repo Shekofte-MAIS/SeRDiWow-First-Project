@@ -1,4 +1,4 @@
-package org.weaving.javaClassServiceTask;
+package org.weaving.internalServiceTask;
 
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.instance.BoundaryEvent;
@@ -8,18 +8,18 @@ import org.camunda.bpm.model.bpmn.instance.ServiceTask;
 import org.weaving.base.AspectWeaver;
 import org.weaving.base.AspectParser;
 
-public class JavaClassServiceTaskAspectWeaver extends AspectWeaver<JavaClassServiceTaskAdvice> {
-    public JavaClassServiceTaskAspectWeaver(BpmnModelInstance bpmnModelInstance) {
+public class InternalServiceTaskAspectWeaver extends AspectWeaver<InternalServiceTaskAdvice> {
+    public InternalServiceTaskAspectWeaver(BpmnModelInstance bpmnModelInstance) {
         super(bpmnModelInstance);
     }
 
     @Override
     public AspectParser getAspectParser(String aspectFilePath) throws Exception {
-        return new JavaClassServiceTaskAspectParser(aspectFilePath);
+        return new InternalServiceTaskAspectParser(aspectFilePath);
     }
 
     @Override
-    public void weaveAfterAdvice(JavaClassServiceTaskAdvice advice, FlowNode monitoredElement) {
+    public void weaveAfterAdvice(InternalServiceTaskAdvice advice, FlowNode monitoredElement) {
         SequenceFlow outgoingSequenceFlow = monitoredElement.getOutgoing().iterator().next(); //TODO: suppose multiple outgoings
         FlowNode oldTargetNode = outgoingSequenceFlow.getTarget();
         monitoredElement.getParentElement().removeChildElement(outgoingSequenceFlow);
@@ -30,7 +30,7 @@ public class JavaClassServiceTaskAspectWeaver extends AspectWeaver<JavaClassServ
     }
 
     @Override
-    public void weaveBeforeAdvice(JavaClassServiceTaskAdvice advice, FlowNode monitoredElement) {
+    public void weaveBeforeAdvice(InternalServiceTaskAdvice advice, FlowNode monitoredElement) {
         SequenceFlow incomingSequenceFlow = monitoredElement.getIncoming().iterator().next(); //TODO: suppose multiple outgoings
         FlowNode oldSourceNode = incomingSequenceFlow.getSource();
         monitoredElement.getParentElement().removeChildElement(incomingSequenceFlow);

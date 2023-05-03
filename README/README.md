@@ -7,7 +7,7 @@ In order to use the project, follow these steps:
    - `aspect-file-path`: the path to the aspect file.
    - `woven-bpmn-file-path`: the path in which you want to store the output, which is the woven bpmn file.
    - `hook-type`: type of the interceptor module which acts like a hook. See the project proposal for more details.
-     - Valid options for this attribute are: `ExecutionListener`, `ExternalServiceTask`, and `JavaClassServiceTask`.
+     - Valid options for this attribute are: `ExecutionListener`, `ExternalServiceTask`, and `InternalServiceTask`.
 
 2. Put the original bpmn file in `bpmn-file-path`.
 
